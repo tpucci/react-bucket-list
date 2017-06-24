@@ -17,44 +17,18 @@ cd app && yarn
 cd ..
 ```
 
-1. Create a psql user:
-
-- username: myappuser
-- password: myapppassword
+1. Create containers:
 
 ```
-sudo -u postgres bash -c "psql -c \"CREATE USER myappuser WITH PASSWORD 'myapppassword';\""
+yarn dev:install
 ```
-
-2. Create a psql database and assign it to our user:
-
-- db: myappdb
-- owner: myappuser
-
-```
-sudo -u postgres bash -c "psql -c \"CREATE DATABASE myappdb WITH OWNER myappuser;\""
-```
-
-3. Run the migrations:
-
-```
-cd api && yarn sequelize db:migrate 
-yarn sequelize db:seed:all
-```
-
 
 ## Dev
 
-4. Run the API
+4. Run the project
 
 ```
-cd api && yarn start:dev
+yarn dev:up
 ```
 
-5. Run the APP
-
-```
-cd app && yarn start
-```
-
-Visit [localhost:3000](http://localhost:3000)
+Visit [localhost](http://localhost)

@@ -1,0 +1,6 @@
+FROM node:7.9-alpine
+
+WORKDIR /usr/src/api
+
+EXPOSE 8080
+CMD ["npm", "run", "serve"]

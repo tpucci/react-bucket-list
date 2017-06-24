@@ -1,0 +1,22 @@
+version: '3'
+services:
+  server-dev:
+    build:
+      context: ../.
+      dockerfile: docker/server/Dockerfile.dev
+    image: myapp-server
+  app-dev:
+    build:
+      context: ../.
+      dockerfile: docker/app/Dockerfile.dev
+    image: myapp-app
+  api-dev:
+    build:
+      context: ../.
+      dockerfile: docker/api/Dockerfile.dev
+    image: myapp-api
+  db-dev:
+    build:
+      context: ../.
+      dockerfile: docker/db/Dockerfile.dev
+    image: myapp-db

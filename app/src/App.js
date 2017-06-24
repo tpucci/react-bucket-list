@@ -3,7 +3,7 @@ import TodoItem from './TodoItem';
 import { Text, View, StyleSheet } from 'react-primitives';
 import DoneIcon from './components/Icons/DoneIcon';
 
-const API_URL = 'http://localhost:8080';
+const API_URL = 'http://localhost/api';
 
 const styles = StyleSheet.create({
   body: {
