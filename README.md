@@ -1,9 +1,8 @@
-# React Bucket List (Containerless)
+# React Bucket List (Containerfull)
 
 ## Requirements
 
-- Postgres
-- Node
+- Docker Compose
 - Yarn
 
 ## Install
