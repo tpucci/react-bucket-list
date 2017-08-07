@@ -1,6 +1,10 @@
 version: '3'
 services:
   server:
+    build:
+      context: ../.
+      dockerfile: docker/server/Dockerfile.dev
+    image: myapp-server
     deploy:
       resources: # Set these values when you know what you do!
         limits:
@@ -9,14 +13,16 @@ services:
         reservations:
           cpus: '0.0001'
           memory: 20M
-    image: myapp-server:${tag}
     ports:
       - '80:80' # Connect localhost 80 port to container 80 port
     links: # Link services to access http://app and  http://api inside the container
       - api:api
       - app:app
   app:
-    image: myapp-app:${tag}
+    build:
+      context: ../.
+      dockerfile: docker/app/Dockerfile.dev
+    image: myapp-app
     environment:
       - NODE_ENV=development
     volumes: # For webpack dev server to use our local files
@@ -32,7 +38,10 @@ services:
         reservations:
           cpus: '0.0001'
           memory: 20M
-    image: myapp-api:${tag}
+    build:
+      context: ../.
+      dockerfile: docker/api/Dockerfile.dev
+    image: myapp-api
     environment:
       - DB_NAME=myappdb
       - DB_USER=myappuser
@@ -49,7 +58,11 @@ services:
     depends_on:
       - "db"
   db:
-    image: myapp-db:${tag}
+    build:
+      context: ../.
+      dockerfile: docker/db/Dockerfile.dev
+    env_file: db/psql.env
+    image: myapp-db
     env_file: ../docker/db/psql.env
     ports:
       - '5431:5432'

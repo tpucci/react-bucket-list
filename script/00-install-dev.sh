@@ -2,29 +2,10 @@
 set -e
 
 # Build app and api containers
-docker-compose -f docker/build.yml build server-dev
-docker-compose -f docker/build.yml build app-dev
-docker-compose -f docker/build.yml build api-dev
-docker-compose -f docker/build.yml build db-dev
+docker-compose -f docker/docker-compose.dev.yml build
 
-# Render environnement variables function
-render_template() {
-  eval "echo \"$(cat $1)\""
-}
-
-# Release locally
-env='loc'
-tag=$env.$(date +"%y.%m.%d.%H%M")
-docker tag myapp-server myapp-server:${tag}
-docker tag myapp-app myapp-app:${tag}
-docker tag myapp-api myapp-api:${tag}
-docker tag myapp-db myapp-db:${tag}
-
-# Put docker compose up recipe in target folder
-mkdir -p target
-render_template config/dev.tpl.yml > target/docker-compose.yml
-
-# Create db user and database
-docker-compose -f target/docker-compose.yml up -d db
+# Launch the db alone once and give it time to create db user and database
+# This is a quickfix to avoid waiting for database to startup on first execution (more details [here](https://docs.docker.com/compose/startup-order/))
+docker-compose -f docker/docker-compose.dev.yml up -d db
 sleep 5
-docker-compose -f target/docker-compose.yml stop db
+docker-compose -f docker/docker-compose.dev.yml stop db

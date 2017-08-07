@@ -1,6 +1,6 @@
-FROM node:7.9-alpine
+FROM node:8.1.0-alpine
 
 WORKDIR /usr/src/app
 
 EXPOSE 3000
-CMD ["npm", "run", "start"]
+CMD ["yarn", "run", "start"]
